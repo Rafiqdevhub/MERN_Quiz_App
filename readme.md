@@ -2,7 +2,7 @@
 
 ## Table of Contents
 
-- [MERN_Quiz_App](#mern_quiz_app)
+- [MERN\_Quiz\_App](#mern_quiz_app)
   - [Table of Contents](#table-of-contents)
   - [Introduction](#introduction)
   - [Features](#features)
@@ -48,7 +48,7 @@ Quiz Online Application is a full-stack web application built using the MERN sta
 ### Prerequisites
 
 - Node.js
-- npm or yarn
+- npm
 - MongoDB
 
 ### Clone the repository
