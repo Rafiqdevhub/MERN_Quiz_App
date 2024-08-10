@@ -2,9 +2,9 @@ const express = require("express");
 const morgan = require("morgan");
 const cors = require("cors");
 const dotenv = require("dotenv");
-const router = require("./router/route.js");
+const router = require("./routes/route");
 
-const connect = require("./database/");
+const connect = require("./database/dbConnection");
 
 const app = express();
 
