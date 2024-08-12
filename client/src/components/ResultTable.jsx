@@ -5,13 +5,12 @@ export default function ResultTable() {
   const [data, setData] = useState([]);
 
   useEffect(() => {
-    getServerData(
-      `${process.env.REACT_APP_SERVER_HOSTNAME}/api/result`,
-      (res) => {
-        setData(res);
-      }
-    );
-  });
+    const serverHostname = import.meta.env.VITE_APP_SERVER_HOSTNAME; // Access the environment variable
+
+    getServerData(`${serverHostname}/api/result`, (res) => {
+      setData(res);
+    });
+  }, []); // Ensure the dependency array is provided to avoid continuous re-renders
 
   return (
     <div>
@@ -19,21 +18,26 @@ export default function ResultTable() {
         <thead className="table-header">
           <tr className="table-row">
             <td>Name</td>
-            <td>Attemps</td>
-            <td>Earn Points</td>
+            <td>Attempts</td>
+            <td>Earned Points</td>
             <td>Result</td>
           </tr>
         </thead>
         <tbody>
-          {!data ?? <div>No Data Found </div>}
-          {data.map((v, i) => (
-            <tr className="table-body" key={i}>
-              <td>{v?.username || ""}</td>
-              <td>{v?.attempts || 0}</td>
-              <td>{v?.points || 0}</td>
-              <td>{v?.achived || ""}</td>
+          {data.length === 0 ? (
+            <tr>
+              <td colSpan="4">No Data Found</td>
             </tr>
-          ))}
+          ) : (
+            data.map((v, i) => (
+              <tr className="table-body" key={i}>
+                <td>{v?.username || ""}</td>
+                <td>{v?.attempts || 0}</td>
+                <td>{v?.points || 0}</td>
+                <td>{v?.achieved || ""}</td>
+              </tr>
+            ))
+          )}
         </tbody>
       </table>
     </div>
