@@ -13,9 +13,8 @@ const getQuestions = async (req, res) => {
 
 const insertQuestions = async (req, res) => {
   try {
-    Questions.insertMany({ questions, answers }, function (err, data) {
-      res.json({ msg: "Data Saved Successfully...!" });
-    });
+    const data = await Questions.insertMany({ questions, answers });
+    res.json({ msg: "Data Saved Successfully...!", data });
   } catch (error) {
     res.json({ error });
   }
@@ -42,16 +41,17 @@ const getResult = async (req, res) => {
 const storeResult = async (req, res) => {
   try {
     const { username, result, attempts, points, achived } = req.body;
-    if (!username && !result) throw new Error("Data Not Provided...!");
 
-    Results.create(
-      { username, result, attempts, points, achived },
-      function (err, data) {
-        res.json({ msg: "Result Saved Successfully...!" });
-      }
-    );
+    if (!username || !result) {
+      throw new Error("Data Not Provided...!");
+    }
+
+    // Use async/await instead of callback
+    await Results.create({ username, result, attempts, points, achived });
+
+    res.json({ msg: "Result Saved Successfully...!" });
   } catch (error) {
-    res.json({ error });
+    res.json({ error: error.message });
   }
 };
 
