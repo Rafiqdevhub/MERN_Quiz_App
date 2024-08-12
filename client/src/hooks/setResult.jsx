@@ -21,9 +21,15 @@ export const usePublishResult = (resultData) => {
   const { result, username } = resultData;
   (async () => {
     try {
-      if (result !== [] && !username) throw new Error("Couldn't get Result");
+      const serverHostname = import.meta.env.VITE_APP_SERVER_HOSTNAME;
+      if (!serverHostname) {
+        throw new Error(
+          "Server hostname is not defined in environment variables"
+        );
+      }
+      if (result != [] && !username) throw new Error("Couldn't get Result");
       await postServerData(
-        `${process.env.REACT_APP_SERVER_HOSTNAME}/api/result`,
+        `${serverHostname}/api/result`,
         resultData,
         (data) => data
       );
