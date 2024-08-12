@@ -19,7 +19,7 @@ app.use("/api", router);
 
 app.get("/", (req, res) => {
   try {
-    res.json("Get Request");
+    res.json("Get Request....");
   } catch (error) {
     res.json(error);
   }
