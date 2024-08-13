@@ -5,12 +5,12 @@ export default function ResultTable() {
   const [data, setData] = useState([]);
 
   useEffect(() => {
-    const serverHostname = import.meta.env.VITE_APP_SERVER_HOSTNAME; // Access the environment variable
+    const serverHostname = import.meta.env.VITE_APP_SERVER_HOSTNAME;
 
     getServerData(`${serverHostname}/api/result`, (res) => {
       setData(res);
     });
-  }, []); // Ensure the dependency array is provided to avoid continuous re-renders
+  }, []);
 
   return (
     <div>
