@@ -4,7 +4,6 @@ import Questions from "./Questions";
 import { MoveNextQuestion, MovePrevQuestion } from "../hooks/FetchQuestion";
 import { PushAnswer } from "../hooks/setResult";
 
-/** redux store import */
 import { useSelector, useDispatch } from "react-redux";
 import { Navigate } from "react-router-dom";
 
@@ -15,26 +14,20 @@ export default function Quiz() {
   const { queue, trace } = useSelector((state) => state.questions);
   const dispatch = useDispatch();
 
-  /** next button event handler */
   function onNext() {
     if (trace < queue.length) {
-      /** increase the trace value by one using MoveNextAction */
       dispatch(MoveNextQuestion());
 
-      /** insert a new result in the array.  */
       if (result.length <= trace) {
         dispatch(PushAnswer(check));
       }
     }
 
-    /** reset the value of the checked variable */
     setChecked(undefined);
   }
 
-  /** Prev button event handler */
   function onPrev() {
     if (trace > 0) {
-      /** decrease the trace value by one using MovePrevQuestion */
       dispatch(MovePrevQuestion());
     }
   }
@@ -43,16 +36,14 @@ export default function Quiz() {
     setChecked(check);
   }
 
-  /** finished exam after the last question */
   if (result.length && result.length >= queue.length) {
-    return <Navigate to={"/result"} replace={true}></Navigate>;
+    return <Navigate to="/result" replace={true}></Navigate>;
   }
 
   return (
     <div className="container">
       <h1 className="title text-light">Quiz Application</h1>
 
-      {/* display questions */}
       <Questions onChecked={onChecked} />
 
       <div className="grid">
